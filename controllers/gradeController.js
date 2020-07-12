@@ -48,7 +48,7 @@ const findOne = async (req, res) => {
 
   try {
     const data = await Grade.findById({ _id: id });
-    if (data.length == 0) {
+    if (data === null) {
       res.status(404).send({ message: 'Nenhuma grade encontrada!' });
       return;
     }
@@ -74,6 +74,12 @@ const update = async (req, res) => {
     const data = await Grade.findByIdAndUpdate({ _id: id }, req.body, {
       new: true,
     });
+
+    if (data === null) {
+      return res
+        .status(404)
+        .send({ message: `Grade ${id} não encontrada para atualizar!` });
+    }
 
     res.send({ message: 'Grade atualizada com sucesso' });
 
