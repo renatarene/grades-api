@@ -1,10 +1,15 @@
-import { db } from '../models/index.js';
-import { logger } from '../config/logger.js';
+import { db } from '../models/index';
+import { logger } from '../config/logger';
+
+const Grade = db.grade;
 
 const create = async (req, res) => {
+  const grade = new Grade({ ...req.body });
+
   try {
-    res.send();
-    logger.info(`POST /grade - ${JSON.stringify()}`);
+    await grade.save();
+    res.status(201).send({ message: 'Grade inserida com sucesso' });
+    logger.info(`POST /grade - ${JSON.stringify(req.body)}`);
   } catch (error) {
     res
       .status(500)
