@@ -47,7 +47,12 @@ const findOne = async (req, res) => {
   const id = req.params.id;
 
   try {
-    res.send();
+    const data = await Grade.findById({ _id: id });
+    if (data.length == 0) {
+      res.status(404).send({ message: 'Nenhuma grade encontrada!' });
+      return;
+    }
+    res.send(data);
 
     logger.info(`GET /grade - ${id}`);
   } catch (error) {
