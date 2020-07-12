@@ -27,7 +27,13 @@ const findAll = async (req, res) => {
     : {};
 
   try {
-    res.send();
+    const data = await Grade.find(condition);
+    if (data.length == 0) {
+      res.status(404).send({ message: 'Nenhuma grade encontrada!' });
+      return;
+    }
+
+    res.send(data);
     logger.info(`GET /grade`);
   } catch (error) {
     res
