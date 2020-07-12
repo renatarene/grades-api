@@ -112,9 +112,13 @@ const remove = async (req, res) => {
 };
 
 const removeAll = async (req, res) => {
-  const id = req.params.id;
-
   try {
+    const data = await Grade.deleteMany();
+    if (data.length === 0) {
+      return res
+        .status(404)
+        .send({ message: 'Nenhuma grade encontrada para exclusão' });
+    }
     res.send({
       message: `Grades excluidos`,
     });
