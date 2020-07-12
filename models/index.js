@@ -4,6 +4,6 @@ import gradeModel from './gradeModel';
 const db = {};
 db.mongoose = mongoose;
 db.url = process.env.MONGODB;
-db.gradeModel = gradeModel(mongoose);
+db.grade = gradeModel(mongoose);
 
 export { db };
