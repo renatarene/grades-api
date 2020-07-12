@@ -71,7 +71,11 @@ const update = async (req, res) => {
   const id = req.params.id;
 
   try {
-    res.send({ message: 'Grade atualizado com sucesso' });
+    const data = await Grade.findByIdAndUpdate({ _id: id }, req.body, {
+      new: true,
+    });
+
+    res.send({ message: 'Grade atualizada com sucesso' });
 
     logger.info(`PUT /grade - ${id} - ${JSON.stringify(req.body)}`);
   } catch (error) {
